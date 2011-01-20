@@ -25,7 +25,7 @@ local function OnLeave()
 	GameTooltip:Hide()
 end
 
-function lib.CreateButton( parent, name )
+function lib.CreateButton( parent, name, desc )
 	local button = CreateFrame( "Button", nil, parent )
 	button:SetWidth( 44 )
 	button:SetHeight( 19 )
@@ -33,7 +33,7 @@ function lib.CreateButton( parent, name )
 	button:SetNormalFontObject( GameFontNormalSmall )
 	button:SetDisabledFontObject( GameFontDisable )
 	button:SetHighlightFontObject( GameFontHighlightSmall )
-	
+
 	button:SetNormalTexture( [[Interface\Buttons\UI-Panel-Button-Up]] )
 	button:GetNormalTexture():SetTexCoord( 0, 0.625, 0, 0.6875 )
 
@@ -49,6 +49,8 @@ function lib.CreateButton( parent, name )
 
 	button:SetScript( "OnEnter", OnEnter )
 	button:SetScript( "OnLeave", OnLeave )
+
+	button.desc = desc
 
 	return button
 end
