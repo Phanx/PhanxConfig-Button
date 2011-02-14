@@ -27,8 +27,6 @@ end
 
 function lib.CreateButton( parent, name, desc )
 	local button = CreateFrame( "Button", nil, parent )
-	button:SetWidth( 44 )
-	button:SetHeight( 19 )
 
 	button:SetNormalFontObject( GameFontNormalSmall )
 	button:SetDisabledFontObject( GameFontDisable )
@@ -49,6 +47,10 @@ function lib.CreateButton( parent, name, desc )
 
 	button:SetScript( "OnEnter", OnEnter )
 	button:SetScript( "OnLeave", OnLeave )
+
+	button:SetText( name )
+	button:SetWidth( math.min( 44, button:GetTextWidth() + 8 ) )
+	button:SetHeight( 22 )
 
 	button.desc = desc
 
