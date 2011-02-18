@@ -26,6 +26,10 @@ local function OnLeave()
 end
 
 function lib.CreateButton( parent, name, desc )
+	assert( type(parent) == "table" and parent.GetFrameType, "PhanxConfig-Button: Parent is not a valid frame!" )
+	if type(name) ~= "string" then name = nil end
+	if type(desc) ~= "string" then desc = nil end
+
 	local button = CreateFrame( "Button", nil, parent )
 
 	button:SetNormalFontObject( GameFontNormalSmall )
