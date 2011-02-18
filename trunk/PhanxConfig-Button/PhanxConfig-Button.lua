@@ -8,7 +8,7 @@
 	its internals may change at any time without notice.
 ----------------------------------------------------------------------]]
 
-local MINOR_VERSION = tonumber( string.match( "$Revision: 28 $", "%d+" ) )
+local MINOR_VERSION = tonumber( string.match( "$Revision: 29 $", "%d+" ) )
 
 local lib, oldminor = LibStub:NewLibrary( "PhanxConfig-Button", MINOR_VERSION )
 if not lib then return end
@@ -54,7 +54,7 @@ function lib.CreateButton( parent, name, desc )
 
 	button:SetText( name )
 	button:SetWidth( math.min( 44, button:GetTextWidth() + 8 ) )
-	button:SetHeight( 22 )
+	button:SetHeight( 24 )
 
 	button.desc = desc
 
