@@ -25,6 +25,14 @@ local function OnLeave()
 	GameTooltip:Hide()
 end
 
+local function OnClick( self, button )
+	PlaySound("gsTitleOptionOK")
+	local func = self.OnClick
+	if func then
+		func( self, button )
+	end
+end
+
 function lib.CreateButton( parent, name, desc )
 	assert( type(parent) == "table" and parent.CreateFontString, "PhanxConfig-Button: Parent is not a valid frame!" )
 	if type(name) ~= "string" then name = nil end
@@ -51,6 +59,7 @@ function lib.CreateButton( parent, name, desc )
 
 	button:SetScript( "OnEnter", OnEnter )
 	button:SetScript( "OnLeave", OnLeave )
+	button:SetScript( "OnClick", OnClick )
 
 	button:SetText( name )
 	button:SetWidth( math.min( 44, button:GetTextWidth() + 8 ) )
