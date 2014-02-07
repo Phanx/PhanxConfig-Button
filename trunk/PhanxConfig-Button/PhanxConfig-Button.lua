@@ -13,61 +13,75 @@ local MINOR_VERSION = tonumber(string.match("$Revision$", "%d+"))
 local lib, oldminor = LibStub:NewLibrary("PhanxConfig-Button", MINOR_VERSION)
 if not lib then return end
 
-local scripts = {
-	OnEnter = function(self)
-		if self.hint then
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			GameTooltip:SetText(self.hint, nil, nil, nil, nil, true)
-		end
-	end,
-	OnLeave = function(self)
-		GameTooltip:Hide()
-	end,
-	OnClick = function(self, button)
-		PlaySound("gsTitleOptionOK")
-		if self.OnClick then
-			self:OnClick(button)
-		end
-	end,
-	OnMouseDown = function(self, button)
-		if self:IsEnabled() then
-			self.Left:SetTexture("Interface\\Buttons\\UI-Panel-Button-Down")
-			self.Middle:SetTexture("Interface\\Buttons\\UI-Panel-Button-Down")
-			self.Right:SetTexture("Interface\\Buttons\\UI-Panel-Button-Down")
-		end
-	end,
-	OnMouseUp = function(self, button)
-		if self:IsEnabled() then
-			self.Left:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up")
-			self.Middle:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up")
-			self.Right:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up")
-		end
-	end,
-	OnDisable = function(self)
-		self.Left:SetTexture("Interface\\Buttons\\UI-Panel-Button-Disabled")
-		self.Middle:SetTexture("Interface\\Buttons\\UI-Panel-Button-Disabled")
-		self.Right:SetTexture("Interface\\Buttons\\UI-Panel-Button-Disabled")
-	end,
-	OnEnable = function(self)
+------------------------------------------------------------------------
+
+local scripts = {}
+
+function scripts:OnClick(button)
+	PlaySound("gsTitleOptionOK")
+	local func = self.func or self.OnClick
+	if func then
+		func(self, button)
+	end
+end
+
+function scripts:OnEnter()
+	if self.tooltipText then
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetText(self.tooltipText, nil, nil, nil, nil, true)
+	end
+end
+function scripts:OnLeave()
+	GameTooltip:Hide()
+end
+
+function scripts:OnMouseDown(button)
+	if self:IsEnabled() then
+		self.Left:SetTexture("Interface\\Buttons\\UI-Panel-Button-Down")
+		self.Middle:SetTexture("Interface\\Buttons\\UI-Panel-Button-Down")
+		self.Right:SetTexture("Interface\\Buttons\\UI-Panel-Button-Down")
+	end
+end
+function scripts:OnMouseUp(button)
+	if self:IsEnabled() then
 		self.Left:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up")
 		self.Middle:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up")
 		self.Right:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up")
-	end,
-}
+	end
+end
 
-local methods = {
-	SetHint = function(self, text)
-		self.hint = text
-	end,
-	GetHint = function(self)
-		return self.hint
-	end,
-}
+function scripts:OnEnable()
+	self.Left:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up")
+	self.Middle:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up")
+	self.Right:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up")
+end
+function scripts:OnDisable()
+	self.Left:SetTexture("Interface\\Buttons\\UI-Panel-Button-Disabled")
+	self.Middle:SetTexture("Interface\\Buttons\\UI-Panel-Button-Disabled")
+	self.Right:SetTexture("Interface\\Buttons\\UI-Panel-Button-Disabled")
+end
 
-function lib:New(parent, name, hint)
+------------------------------------------------------------------------
+
+local methods = {}
+
+function methods:GetTooltipText()
+	return self.tooltipText
+end
+function methods:SetTooltipText(text)
+	self.tooltipText = text
+end
+
+function methods:SetFunction(func)
+	self.func = func
+end
+
+------------------------------------------------------------------------
+
+function lib:New(parent, name, tooltipText)
 	assert(type(parent) == "table" and parent.CreateFontString, "PhanxConfig-Button: Parent is not a valid frame!")
 	if type(name) ~= "string" then name = nil end
-	if type(hint) ~= "string" then hint = nil end
+	if type(tooltipText) ~= "string" then tooltipText = nil end
 
 	local button = CreateFrame("Button", nil, parent)
 
@@ -115,7 +129,7 @@ function lib:New(parent, name, hint)
 	button:SetWidth(math.min(44, button:GetTextWidth() + 8))
 	button:SetHeight(24)
 
-	button.hint = hint
+	button.tooltipText = tooltipText
 
 	return button
 end
