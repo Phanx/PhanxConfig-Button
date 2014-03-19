@@ -19,9 +19,8 @@ local scripts = {}
 
 function scripts:OnClick(button)
 	PlaySound("gsTitleOptionOK")
-	local func = self.func or self.OnClick
-	if func then
-		func(self, button)
+	if self.Callback then
+		self:Callback(button)
 	end
 end
 
@@ -65,15 +64,18 @@ end
 
 local methods = {}
 
-function methods:GetTooltipText()
-	return self.tooltipText
+function methods:GetLabel()
+	return self:GetText()
 end
-function methods:SetTooltipText(text)
-	self.tooltipText = text
+function methods:SetLabel(text)
+	self:SetText(text)
 end
 
-function methods:SetFunction(func)
-	self.func = func
+function methods:GetTooltip()
+	return self.tooltipText
+end
+function methods:SetTooltip(text)
+	self.tooltipText = text
 end
 
 ------------------------------------------------------------------------
