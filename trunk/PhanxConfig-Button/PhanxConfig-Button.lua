@@ -2,12 +2,11 @@
 	PhanxConfig-Button
 	Simple button widget generator.
 	Requires LibStub.
-	https://github.com/phanx/PhanxConfigWidgets
 	Copyright (c) 2009-2014 Phanx. All rights reserved.
-	See the accompanying README and LICENSE files for more information.
+	https://github.com/phanx/PhanxConfigWidgets
 ----------------------------------------------------------------------]]
 
-local MINOR_VERSION = tonumber(string.match("$Revision$", "%d+"))
+local MINOR_VERSION = 172
 
 local lib, oldminor = LibStub:NewLibrary("PhanxConfig-Button", MINOR_VERSION)
 if not lib then return end
