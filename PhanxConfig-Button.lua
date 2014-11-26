@@ -3,7 +3,7 @@
 	Simple button widget generator. Requires LibStub.
 	https://github.com/Phanx/PhanxConfig-Button
 
-	Copyright (c) 2009-2014 Phanx. All rights reserved.Phanx. All rights reserved.
+	Copyright (c) 2009-2014 Phanx <addons@phanx.net>. All rights reserved.
 
 	Permission is granted for anyone to use, read, or otherwise interpret
 	this software for any purpose, without any restrictions.
