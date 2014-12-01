@@ -38,7 +38,7 @@
 	OTHER DEALINGS IN THE SOFTWARE.
 ----------------------------------------------------------------------]]
 
-local MINOR_VERSION = 172
+local MINOR_VERSION = 20141201
 
 local lib, oldminor = LibStub:NewLibrary("PhanxConfig-Button", MINOR_VERSION)
 if not lib then return end
@@ -49,7 +49,7 @@ local scripts = {}
 
 function scripts:OnClick(button)
 	PlaySound("gsTitleOptionOK")
-	local callback = self.OnClicked or self.Callback
+	local callback = self.OnClicked
 	if callback then
 		callback(self, button)
 	end
