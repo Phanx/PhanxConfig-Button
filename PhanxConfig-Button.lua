@@ -29,7 +29,7 @@ end
 scripts.OnLeave = GameTooltip_Hide
 
 function scripts:OnClick(button)
-	PlaySound(798)
+	PlaySound(SOUNDKIT.GS_TITLE_OPTION_OK)
 	local callback = self.OnClick or self.Callback or self.callback
 	if callback then
 		callback(self, button)
